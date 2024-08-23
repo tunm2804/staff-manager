@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{component/layout/layout::dynamic(~{::main})}">
+<main>
+    <h3>[[${title}]]</h3>
+    <div class="mt-3 border p-3 rounded-3">
+        <form th:action="${action}" th:object="${staff}" method="post">
+            <div class="row row-cols-2">
+                <div class="mb-3 w-50 col">
+                    <label for="staffCode"><span class="fw-bold" style="color: red">*</span> Mã nhân viên</label>
+                    <input type="text" class="form-control" id="staffCode" th:field="*{staffCode}">
+                    <div class="text-danger" th:if="${#fields.hasErrors('staffCode')}" th:errors="*{staffCode}"></div>
+                </div>
+                <div class="mb-3 w-50 col">
+                    <label for="name"><span class="fw-bold" style="color: red">*</span> Tên nhân viên</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}">
+                    <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                </div>
+                <div class="mb-3 w-50 col">
+                    <label for="accountFpt"><span class="fw-bold" style="color: red">*</span> Email FPT</label>
+                    <input type="text" class="form-control" id="accountFpt" th:field="*{accountFpt}">
+                    <div class="text-danger" th:if="${#fields.hasErrors('accountFpt')}" th:errors="*{accountFpt}"></div>
+                </div>
+                <div class="mb-3 w-50 col">
+                    <label for="accountFe"><span class="fw-bold" style="color: red">*</span> Email FE</label>
+                    <input type="text" class="form-control" id="accountFe" th:field="*{accountFe}">
+                    <div class="text-danger" th:if="${#fields.hasErrors('accountFe')}" th:errors="*{accountFe}"></div>
+                </div>
+                <div class="mb-3 w-50 col">
+                    <label for="accountFe">
+                        (<span class="fw-bold" style="color: red">*</span>)
+                        Biểu thị không được trống</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-dark" type="submit">Lưu</button>
+            </div>
+        </form>
+    </div>
+</main>

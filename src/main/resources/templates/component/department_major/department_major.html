@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{component/layout/layout::dynamic(~{::main})}">
+<main>
+    <script src="../main.js"></script>
+    <h3>Quản lý bộ môn / chuyên ngành</h3>
+    <div class="shadow-lg p-3 mt-5 mb-5 bg-body-tertiary rounded" th:object="${staff}">
+        <span class="h5"><i class="fa-solid fa-circle-info"></i> Thông tin nhân viên</span>
+        <div class="row mt-3">
+            <div class="mb-3 col">
+                <label for="staffCode" class="form-label">Ma</label>
+                <input type="text" readonly class="form-control" id="staffCode" th:field="*{staffCode}">
+            </div>
+            <div class="mb-3 col">
+                <label for="name" class="form-label">Tên</label>
+                <input type="text" readonly class="form-control" id="name" th:field="*{name}">
+            </div>
+            <div class="mb-3 col">
+                <label for="accountFpt" class="form-label">Email FPT</label>
+                <input type="text" readonly class="form-control" id="accountFpt" th:field="*{accountFpt}">
+            </div>
+            <div class="mb-3 col">
+                <label for="accountFe" class="form-label">Email FE</label>
+                <input type="text" readonly class="form-control" id="accountFe" th:field="*{accountFe}">
+            </div>
+        </div>
+    </div>
+    <div class="shadow-lg p-3 mt-5 mb-5 bg-body-tertiary rounded">
+        <div class="row row-cols-2 mb-3">
+            <div class="col-9 d-flex align-items-center">
+                <span class="fw-bold h5"><i
+                        class="fa-solid fa-bars"></i> Danh sách bộ môn, chuyên ngành theo cơ sở</span>
+            </div>
+            <div class="col-3 d-flex justify-content-end">
+                <button data-bs-toggle="modal" data-bs-target="#new_department_major" type="button"
+                        class="btn btn-custom btn-dark me-2">Thêm bộ môn chuyên ngành
+                </button>
+                <div class="modal fade" id="new_department_major" tabindex="-1"
+                     aria-labelledby="new_department_majorLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form id="send" th:action="@{'/department-major/add/' + ${staff.get().getId()}}" method="post" class="modal-content"
+                              th:object="${objectCustom}">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="new_department_majorLabel">Thêm bộ môn chuyên
+                                    ngành</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row row-cols-1">
+                                    <div class="mb-3">
+                                        <label class="form-label"><span class="text-danger">*</span> Cơ sở</label>
+                                        <select class="form-select" aria-label="Default select example" id="facility"
+                                                th:field="*{facility}">
+                                            <option selected value="">--Chọn cơ sở--</option>
+                                            <option th:each="option : ${listFacility}" th:value="${option.getId()}"
+                                                    th:text="${option.name}"></option>
+                                        </select>
+                                        <div id="error-facility" class="text-danger" style="display: none">Cơ sở không được trống</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label"><span class="text-danger">*</span> Bộ môn</label>
+                                        <select class="form-select" aria-label="Default select example" id="department"
+                                                th:field="*{department}">
+                                            <option selected value="">--Chọn bộ môn--</option>
+                                            <option th:each="option : ${listDepartments}" th:value="${option.getId()}"
+                                                    th:text="${option.name}"></option>
+                                        </select>
+                                        <div id="error-department" class="text-danger" style="display: none">Bộ môn không được trống</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label"><span class="text-danger">*</span> Chuyên
+                                            ngành</label>
+                                        <select class="form-select" aria-label="Default select example" id="major"
+                                                th:field="*{major}">
+                                            <option selected value="">--Chọn chuyên ngành--</option>
+                                            <option th:each="option : ${listMajors}" th:value="${option.getId()}"
+                                                    th:text="${option.name}"></option>
+                                        </select>
+                                        <div id="error-major" class="text-danger" style="display: none">Chuyên ngành không được trống</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        (<span class="text-danger">*</span>) Biểu thị trường không được để trống
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Đóng</button>
+                                <button type="button" id="onSubmit" class="btn btn-dark">Lưu</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <table class="table table-bordered" id="table-emp">
+                <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Cơ sở</th>
+                    <th scope="col">Bộ môn</th>
+                    <th scope="col">Chuyên ngành</th>
+                    <th scope="col">Hành động</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${info.isEmpty()}" class="text-center">
+                    <td colspan="5" class="fst-italic">Nhân viên này không có chức vụ</td>
+                </tr>
+                <th:block th:each="i, iStat : ${info}">
+                    <tr>
+                        <th scope="row">[[${iStat.index + 1}]]</th>
+                        <td>[[${i.idMajorFacility.idDepartmentFacility.idFacility.name}]]</td>
+                        <td>[[${i.idMajorFacility.idDepartmentFacility.idDepartment.name}]]</td>
+                        <td>[[${i.idMajorFacility.idMajor.name}]]</td>
+                        <td class="text-center">
+                            <a class="text-dark" th:href="@{'/department-major/delete/' + ${idStaff} + '/' + ${i.getId()}}"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+            <i class="text-danger">
+                ***Chú ý: Nhân viên chỉ có một bộ môn và một chuyên ngành trong một cơ sở***
+            </i>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,6 @@
+#table-emp > thead > tr > th, #table-emp > tbody > tr > td, #table-emp > tbody > tr > th {
+    background-color: #f8f9fa !important;
+}
+.btn-custom{
+    border-radius: 20px !important;
+}

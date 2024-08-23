@@ -1,0 +1,9 @@
+2024-08-23 13:00:51,Thêm thành công nhân viên: vunhph33506@fpt.edu.vn 
+2024-08-23 13:12:27,Lỗi xác thực: accountFe - Không chứa khoảng trắng và kết thúc bằng @fe.edu.vn
+2024-08-23 13:12:27,Lỗi xác thực: accountFe - Email không hợp lệ!
+2024-08-23 17:00:49,Lỗi xác thực: accountFe - Không chứa khoảng trắng và kết thúc bằng @fe.edu.vn
+2024-08-23 17:00:49,Lỗi xác thực: accountFe - Email không hợp lệ!
+2024-08-23 17:01:33,Lỗi xác thực: accountFe - Email không hợp lệ!
+2024-08-23 17:01:33,Lỗi xác thực: accountFe - Không chứa khoảng trắng và kết thúc bằng @fe.edu.vn
+2024-08-23 17:09:08,Lỗi xác thực: accountFe - Không chứa khoảng trắng và kết thúc bằng @fe.edu.vn
+2024-08-23 17:09:08,Lỗi xác thực: accountFe - Email không hợp lệ!
